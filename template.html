@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reporting</title>
+
+	<link rel="stylesheet" href="../node_modules/reveal.js/dist/reset.css">
+	<link rel="stylesheet" href="../node_modules/reveal.js/dist/reveal.css">
+	<link rel="stylesheet" href="../node_modules/reveal.js/dist/theme/black.css" id="theme">
+
+</head>
+
+<body>
+
+	<div class="reveal">
+		<div class="slides">
+
+			<section>
+				<h2>Weekly project reporting</h2>
+				<h3>COming from Trello!</h3>
+				<p id="date"></p>
+				<script>
+					n = new Date();
+					y = n.getFullYear();
+					m = n.getMonth() + 1;
+					d = n.getDate();
+					document.getElementById("date").innerHTML = d + "/" + m + "/" + y;</script>
+			</section>
+
+
+			<!-- Content here -->
+
+
+			<section>
+				<h2 class="r-fit-text">Thanks for your attention</h2>
+			</section>
+
+		</div>
+	</div>
+
+
+	<script src="../node_modules/reveal.js/dist/reveal.js"></script>
+	<script src="../node_modules/reveal.js/plugin/zoom/zoom.js"></script>
+	<script src="../node_modules/reveal.js/plugin/notes/notes.js"></script>
+	<script src="../node_modules/reveal.js/plugin/search/search.js"></script>
+	<script src="../node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+	<script src="../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+	<script>
+
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+
+
+			slideNumber: 'c/t',
+
+			backgroundTransition: 'zoom',
+
+		});
+
+
+	</script>
+
+</body>
+
+</html>
