@@ -34,22 +34,18 @@ async function getProjectsFromTrello() {
 async function createReportingFile(templateFile, printingFcn, topics, outputFile) {
 
 
-	fsLibrary.readFile(templateFile, (error, data) => {
-		// In case of a error throw err exception. 
-		if (error) {
-			throw err;
-		}
-		else {
-			const template = data.toString();
-			const content = template.replace('<!-- Content here -->', topics.map(printingFcn).join("\n\n"));
+	const template = fsLibrary.readFileSync(templateFile, 'utf8');
 
-			fsLibrary.writeFile(outputFile, content, (error) => {
-				// In case of a error throw err exception. 
-				if (error)
-					throw err;
-			});
-		}
-	})
+
+	const projects = topics.map(printingFcn).join("\n\n");
+
+	logging(topics);
+	logging(projects);
+
+	const content = template.replace('<!-- Content here -->', projects);
+
+	fsLibrary.writeFileSync(outputFile, content, 'utf8');
+
 }
 
 const printCardPresentation = topic => {
@@ -66,14 +62,15 @@ const printCardPresentation = topic => {
 	// Deleting " - " at the end of the string
 	tags = tags.substring(0, tags.length - separator.length);
 
-	logging(tags);
+	let slide = ""
 
-	return `
-	<section>\n
-		<h1>${topic.name}</h1>\n
-		<small>${tags.trim()}</small>\n
-		<p class="r-fit-text">${topic.desc.replace(/\n/g, '<br/>')}</p>\n
-	</section>`;
+	slide = fsLibrary.readFileSync("./template_part.html", 'utf8');
+
+	slide = slide.replace('<!-- TITLE -->', topic.name);
+	slide = slide.replace('<!-- TAGS -->', tags);
+	slide = slide.replace('<!-- CONTENT -->', topic.desc);
+
+	return slide;
 }
 
 
@@ -83,4 +80,6 @@ const printCardPresentation = topic => {
 	const topics = await getProjectsFromTrello();
 
 	createReportingFile("./template.html", printCardPresentation, topics, "./OUTPUT/Reporting.html");
+
+
 })();
